@@ -27,6 +27,46 @@ function evaluate(){
   }
 }
 
+// Currency conversion
+const exchangeButton = document.getElementById('exchange-button');
+const exchangeAmount = document.getElementById('exchange-amount');
+const exchangeFrom = document.getElementById('exchange-from');
+const exchangeTo = document.getElementById('exchange-to');
+const exchangeResult = document.getElementById('exchange-result');
+
+function updateExchangeResult(message) {
+  if (exchangeResult) exchangeResult.textContent = message;
+}
+
+async function convertCurrency() {
+  if (!exchangeAmount || !exchangeFrom || !exchangeTo) return;
+  const amount = Number(exchangeAmount.value);
+  if (!amount || amount <= 0) {
+    updateExchangeResult('Enter a valid amount greater than zero.');
+    return;
+  }
+
+  const from = exchangeFrom.value;
+  const to = exchangeTo.value;
+  updateExchangeResult('Fetching latest exchange rate...');
+
+  try {
+    const response = await fetch(`https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amount}`);
+    const data = await response.json();
+    if (!data || data.success === false) {
+      throw new Error('Could not fetch rates');
+    }
+    const value = Number(data.result).toFixed(4);
+    updateExchangeResult(`${amount} ${from} = ${value} ${to}`);
+  } catch (err) {
+    updateExchangeResult('Unable to fetch exchange rate. Try again later.');
+  }
+}
+
+if (exchangeButton) {
+  exchangeButton.addEventListener('click', convertCurrency);
+}
+
 // Keyboard support
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); evaluate(); return; }

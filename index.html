@@ -37,6 +37,31 @@
                 <button class="key" data-value=".">.</button>
             </div>
         </div>
+        <div class="exchange-panel">
+            <h2>Currency Converter</h2>
+            <div class="exchange-controls">
+                <input id="exchange-amount" type="number" min="0" step="any" value="1" aria-label="Amount">
+                <select id="exchange-from" aria-label="From currency">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                    <option value="JPY">JPY</option>
+                    <option value="AUD">AUD</option>
+                    <option value="CAD">CAD</option>
+                </select>
+                <select id="exchange-to" aria-label="To currency">
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="JPY">JPY</option>
+                    <option value="AUD">AUD</option>
+                    <option value="CAD">CAD</option>
+                </select>
+                <button id="exchange-button" class="exchange-btn" type="button">Convert</button>
+            </div>
+            <div class="exchange-result" id="exchange-result">Result: enter an amount and choose currencies.</div>
+        </div>
+
         <p class="hint">You can also use your keyboard to type expressions.</p>
     </main>
 
